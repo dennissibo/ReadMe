@@ -38,7 +38,7 @@ Go to IPv4 Public IP:443 in a browser and paste the token from docker to log in 
 Whether or not we would lose data once we terminate the instance.
 
 ## Diagram:
-Local ——> SSH ——> AWS ——> GitHub
+Local(Bash Shell) ——> by SSH keys ——> AWS server Farm {Ubuntu(Docker)} ——> GitHub
 
 ## Budget
 AWS offers four kinds of pricing: On Demand, Spot Instances, Reserved Instances, and Dedicated Hosts, while Reserved Instances and Dedicated Hosts are purchased by package for 1-year or 3-year, so we just compare the price of On Demand and Spot Instances. 
