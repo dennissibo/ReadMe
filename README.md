@@ -2,7 +2,7 @@
 
 ## Steps
 ## Step 1: 
-Create SSH using `ssh-keygen -t rsa` and `ssh-keygen -t rsa -f ~/.ssh/newname.pub`
+Create SSH using `ssh key-gen` and `cat ~/.ssh/id_rsa.pub`
 ## Step 2: 
 Log in to AWS and go to EC2 dashboard.
 ## Step 3:
@@ -16,17 +16,26 @@ Add security groups with Inbound as the following:
 | Custom TCP | TCP        |  27016      |   Anywhere   |
 
 ## Step 4:
-Lunch AWS EC2 Instantce, first chose Ubuntu AMI server with the t2.micro type, then add it with 20GB storage. Use the seccurity group we set up in the pervious step. 
+Lunch AWS EC2 Instantce, first chose Ubuntu AMI server with the t2.micro(1GiB) type, then add it with 20GB storage. Use the seccurity group we set up in the pervious step. Everything else chose defult. 
+
+View the instance just created and locate the _IPv4 public IP_ address.
 ## Step 5:
-Install docker by using command `curl -sSl https://get.docker.com | sh` in git bash, then use `sudo usermod -aG docker ubuntu` to add ubuntu to use docker. Check the docker version with `docker -v`.
-Log out with the command `logout`, to log back in with command `ssh ubuntu@your_IP_Address`.
+Run `ssh ubuntu@your_IP_Address` in Terminal to connect terminal to IP. 
+
+Install docker by using command `curl -sSl https://get.docker.com | sh` in Terminal. Log out with the command `logout`, to log back in with command `ssh ubuntu@your_IP_Address`.
+
+Then run `sudo usermod -aG docker ubuntu` to add ubuntu to use docker. Check the docker version with `docker -v`.
 ## Step 6:
 Use `docker pull jupyter/datascience-notebook` to download the correct image. 
 ## Step 7:
 Use `docker run -p 80:8888 -v /home/ubuntu:/home/jovyan jupyter/datascience-notebook` to run the notebook, to check that a jupyterhub container has been launched, use `docker ps`. 
+
 Another way to find the container ID is by running `docker ps -a` to list the beginning sequence of the Container, the first four character is enough to idtenify the container_id. 
 ## Step 8:
-Go to IPv4 Public IP:443 and paste the token from docker to log in to jupyter. The notebook uses token to authorize the request.
+Go to IPv4 Public IP:443 in a browser and paste the token from docker to log in to jupyter. 
+
+## Security Concern:
+Whether or not we would lose data once we terminate the instance.
 
 ## Diagram:
 Local ——> SSH ——> AWS ——> GitHub
